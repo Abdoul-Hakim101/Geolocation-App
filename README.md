@@ -48,7 +48,7 @@ node index.js
 5. The status of the submission will be displayed below the button.
 
 ## Screenshots 
-![Screenshot-110350.png](Screenshot-110350.png)
-![Screenshot-110405.png](Screenshot-110405.png)
-![Screenshot-110423.png](Screenshot-110423.png)
-![Screenshot-110544.png](Screenshot-110544.png)
+![Screenshot-110350.png](Screenshots/Screenshot-110350.png)
+![Screenshot-110405.png](Screenshots/Screenshot-110405.png)
+![Screenshot-110423.png](Screenshots/Screenshot-110423.png)
+![Screenshot-110544.png](Screenshots/Screenshot-110544.png)
