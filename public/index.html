@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Geolocation App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        span {
+            margin-right: 5px;
+            font-weight: bold;
+        }
+
+        #lat, #lon {
+            color: #4caf50;
+        }
+
+        #status {
+            color: #2196f3;
+        }
+
+        #submit-btn {
+            background-color: #4caf50;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        #submit-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<h1>Geolocation  App</h1>
+<p>
+    latitude: <span id="lat"></span>&deg;<br>
+    longitude: <span id="lon"></span>&deg;
+</p>
+<button id="submit-btn">Submit</button>
+<p id="status" hidden></p>
+<script>
+    if ('geolocation' in navigator) {
+        console.log('geolocation available');
+        navigator.geolocation.getCurrentPosition( async position => {
+            let latitude = position.coords.latitude;
+            let longitude = position.coords.longitude;
+            document.getElementById('lat').textContent = `${latitude}`;
+            document.getElementById('lon').textContent = `${longitude}`;
+        });
+    } else {
+        console.log('geolocation not available');
+    }
+
+    document.getElementById('submit-btn').addEventListener('click', async function() {
+        const latitude = document.getElementById('lat').textContent;
+        const longitude = document.getElementById('lon').textContent;
+
+        const data = { latitude, longitude };
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+
+        const response = await fetch('/api', options);
+        const json = await response.json();
+        const statusParagraph = document.getElementById('status');
+        statusParagraph.textContent = json.status;
+        statusParagraph.removeAttribute('hidden');
+    });
+</script>
+</body>
+</html>

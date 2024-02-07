@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Geolocation App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        span {
+            margin-right: 5px;
+            font-weight: bold;
+        }
+
+        .latitude {
+            color: #007bff;
+        }
+
+        .longitude {
+            color: #28a745;
+        }
+
+        .timestamp {
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+<h1>Geolocation  App</h1>
+<script>
+    getData()
+
+    async function getData() {
+        const response = await fetch('/api');
+        const data = await response.json();
+
+        data.forEach(entry => {
+            const root = document.createElement('p');
+            const latitudeSpan = document.createElement('span');
+            latitudeSpan.innerText = 'Latitude: ' + entry.latitude + '°, ';
+
+            const longitudeSpan = document.createElement('span');
+            longitudeSpan.innerText = 'Longitude: ' + entry.longitude + '°, ';
+
+            const timestampSpan = document.createElement('span');
+            timestampSpan.innerText = 'Timestamp: ' + new Date(entry.timestamp).toLocaleString();
+
+            latitudeSpan.classList.add('latitude');
+            longitudeSpan.classList.add('longitude');
+            timestampSpan.classList.add('timestamp');
+
+            root.append(latitudeSpan, longitudeSpan, timestampSpan)
+            document.body.append(root);
+        });
+    }
+</script>
+</body>
+</html>
